@@ -34,7 +34,8 @@ pipeline {
 
     post {
         always {
-            // Clean up or perform any post-build actions
+            echo 'Pipeline execution completed' // Add a simple echo statement as a placeholder
+            // You can add more steps here if needed
         }
     }
 }
