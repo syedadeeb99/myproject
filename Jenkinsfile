@@ -1,41 +1,64 @@
+
 pipeline {
+
     agent any
-    
+
     environment {
-        NODEJS_HOME = tool 'NodeJS' // Use the NodeJS installation configured in Jenkins
-        PATH = "$NODEJS_HOME/bin:$PATH"
+
+        MONGODB_URI = 'mongodb://mongo:27017/Adeebuddin'
+
     }
 
     stages {
-        stage('Checkout') {
+
+        stage('Build') {
+
             steps {
-                git 'https://github.com/syedadeeb99/myproject.git' // Checkout the source code from your version control system
+
+                script {
+
+                    // Install dependencies
+
+                    sh 'npm install'
+
+                }
+
             }
+
         }
 
-        stage('Install dependencies') {
-            steps {
-                sh 'npm install' // Install Node.js dependencies
-            }
-        }
+        stage('Test') {
 
-        stage('Run tests') {
             steps {
-                sh 'npm test' // Run tests
+
+                script {
+
+                    // Run tests
+
+                    sh 'npm test'
+
+                }
+
             }
+
         }
 
         stage('Deploy') {
+
             steps {
-                // If you have a deployment step, you can add it here
+
+                script {
+
+                    // Deploy the application
+
+                    sh 'npm start'
+
+                }
+
             }
+
         }
+
     }
 
-    post {
-        always {
-            echo 'Pipeline execution completed' // Add a simple echo statement as a placeholder
-            // You can add more steps here if needed
-        }
-    }
 }
